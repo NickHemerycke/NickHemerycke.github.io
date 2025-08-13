@@ -49,59 +49,90 @@
     <div class="my-8"></div>
 
     
-    <div class="flex justify-center">
-        <div class="bg-gray-800 w-full h-[420px] shadow-lg rounded-lg m-8 mx-auto overflow-hidden relative">
-            
-            <p class="text-2xl font-bold p-4">Projects</p>
-            <div id="carousel-track" class="flex transition-transform duration-500 p-2">
-                <div class="w-full sm:w-1/2 md:w-1/3 h-[300px] flex-shrink-0 flex items-center justify-center bg-gray-700 m-1 rounded-lg transform transition duration-300 hover:scale-105 hover:bg-gray-900">
-                <a href="https://github.com/NickHemerycke/RestaurantShowModel?tab=readme-ov-file"><img class="rounded-lg shadow-lg filter grayscale transform hover:grayscale-0 duration-300" src="images/WorldCuisine.png" alt="logoworldcuisine"></a>
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 h-[300px] flex-shrink-0 flex items-center justify-center bg-gray-700 m-1 rounded-lg transform transition duration-300 hover:scale-105 hover:bg-gray-900">Project x</div>
-                <div class="w-full sm:w-1/2 md:w-1/3 h-[300px] flex-shrink-0 flex items-center justify-center bg-gray-700 m-1 rounded-lg transform transition duration-300 hover:scale-105 hover:bg-gray-900">Project x</div>
-                <div class="w-full sm:w-1/2 md:w-1/3 h-[300px] flex-shrink-0 flex items-center justify-center bg-gray-700 m-1 rounded-lg transform transition duration-300 hover:scale-105 hover:bg-gray-900">Project y</div>
-                <div class="w-full sm:w-1/2 md:w-1/3 h-[300px] flex-shrink-0 flex items-center justify-center bg-gray-700 m-1 rounded-lg transform transition duration-300 hover:scale-105 hover:bg-gray-900">Project y</div>
-                <div class="w-full sm:w-1/2 md:w-1/3 h-[300px] flex-shrink-0 flex items-center justify-center bg-gray-700 m-1 rounded-lg transform transition duration-300 hover:scale-105 hover:bg-gray-900">Project y</div>
-            </div>
-
-            
-            <button id="prev" class="absolute top-1/2 -translate-y-1/2 left-4 bg-white text-black px-2 py-1 rounded-lg shadow-lg">‹</button>
-            <button id="next" class="absolute top-1/2 -translate-y-1/2 right-4 bg-white text-black px-2 py-1 rounded-lg shadow-lg">›</button>
+<div class="flex justify-center">
+  <div class="bg-gray-800 w-full max-w-[1200px] h-[420px] shadow-lg rounded-lg m-8 mx-auto overflow-hidden relative">
+    
+    <p class="text-2xl font-bold p-4">Projects</p>
+    
+    
+    <div id="carousel-track" class="flex transition-transform duration-500 h-[300px] px-2">
+      
+     
+      <div class="carousel-slide w-full sm:w-1/2 md:w-1/3 flex-shrink-0 p-1">
+        <div class="relative w-full h-full rounded-lg overflow-hidden bg-gray-700 shadow-lg">
+          <a href="https://github.com/NickHemerycke/RestaurantShowModel?tab=readme-ov-file">
+            <img class="w-full h-full object-cover transform transition duration-300 hover:scale-105 hover:grayscale-0 filter grayscale" 
+                 src="images/WorldCuisine.png" alt="WorldCuisine">
+          </a>
         </div>
+      </div>
+
+      <div class="carousel-slide w-full sm:w-1/2 md:w-1/3 flex-shrink-0 p-1">
+        <div class="relative w-full h-full rounded-lg overflow-hidden bg-gray-700 shadow-lg flex items-center justify-center text-white text-xl">
+          Project x
+        </div>
+      </div>
+
+      <div class="carousel-slide w-full sm:w-1/2 md:w-1/3 flex-shrink-0 p-1">
+        <div class="relative w-full h-full rounded-lg overflow-hidden bg-gray-700 shadow-lg flex items-center justify-center text-white text-xl">
+          Project y
+        </div>
+      </div>
+
+      <div class="carousel-slide w-full sm:w-1/2 md:w-1/3 flex-shrink-0 p-1">
+        <div class="relative w-full h-full rounded-lg overflow-hidden bg-gray-700 shadow-lg flex items-center justify-center text-white text-xl">
+          Project z
+        </div>
+      </div>
+
     </div>
 
-    <script>
-    const track = document.getElementById('carousel-track');
-    const slides = track.children.length;
-    let currentIndex = 0;
-
-    function updateSlide() {
-        const slideWidth = track.children[0].offsetWidth;
-        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    } 
-
-    document.getElementById('next').addEventListener('click', () => {
-        
-        if (currentIndex < slides - 3) {
-        currentIndex++;
-        } else {
-        currentIndex = 0; 
-        }
-        updateSlide();
-    });
-
-    document.getElementById('prev').addEventListener('click', () => {
-        if (currentIndex > 0) {
-        currentIndex--;
-        } else {
-        currentIndex = slides - 3; 
-        }
-        updateSlide();
-    });
-
     
-    window.addEventListener('resize', updateSlide);
-    </script>
+    <button id="prev" class="absolute top-1/2 -translate-y-1/2 left-4 bg-white text-black px-3 py-1 rounded-lg shadow-lg">‹</button>
+    <button id="next" class="absolute top-1/2 -translate-y-1/2 right-4 bg-white text-black px-3 py-1 rounded-lg shadow-lg">›</button>
+  </div>
+</div>
+
+<script>
+const track = document.getElementById('carousel-track');
+const slides = document.querySelectorAll('.carousel-slide');
+let currentIndex = 0;
+
+function visibleSlides() {
+  if (window.innerWidth >= 768) return 3; 
+  if (window.innerWidth >= 640) return 2; 
+  return 1; 
+}
+
+function updateSlide() {
+  const slidesVisible = visibleSlides();
+  const slideWidth = slides[0].offsetWidth + 8; // include padding/margin
+  track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+}
+
+
+document.getElementById('next').addEventListener('click', () => {
+  const slidesVisible = visibleSlides();
+  if (currentIndex < slides.length - slidesVisible) currentIndex++;
+  else currentIndex = 0;
+  updateSlide();
+});
+
+
+document.getElementById('prev').addEventListener('click', () => {
+  const slidesVisible = visibleSlides();
+  if (currentIndex > 0) currentIndex--;
+  else currentIndex = slides.length - slidesVisible;
+  updateSlide();
+});
+
+
+window.addEventListener('resize', updateSlide);
+
+
+updateSlide();
+</script>
+
 
 
     <div class="my-8"></div>
